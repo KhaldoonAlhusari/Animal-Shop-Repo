@@ -7,4 +7,4 @@ This is a an animal shop website with a fully functional backend. This website w
 3. Adding and changing profile images
 4. Adding and editing events (essentially blog posts) associated with users
 
-https://desolate-taiga-39762.herokuapp.com/
+https://animal-shop-app.herokuapp.com/
