@@ -1,0 +1,88 @@
+<%- include("../partials/header") %>
+    <title>Animals</title>
+    </head>
+
+    <body>
+
+        <%- include("../partials/nav") %>
+
+            <div class="content container my-5">
+                <div class="header w-100">
+                    <h1 class="d-inline-block">List of Animals</h1>
+                    <form class="d-inline-block float-right mt-2" action="/animals" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Ex. Cat" name="q">
+                            <div class="input-group-append d-inline-block">
+                                <button class="btn btn-dark">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <% if (typeof user != "undefined" && user.admin) { %> 
+                    <form class="d-inline-block float-right mt-2 mr-2 add" action="/animals/add" method="get">
+                        <div class="input-group">
+                            <div class="d-inline-block">
+                                <button class="btn btn-dark">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <% } %> 
+                </div>
+                <div class="row">
+                    <% for (let animal of animals) { %>
+                        <article class="col-md-3 col-sm-12 d-flex justify-content-around my-3">
+                            <div class="card w-100 px-3 py-3 animal-card">
+                                <div class="mx-auto mt-3">
+                                    <img src="<%= animal.img %>" class="img-thumbnail rounded">
+                                </div>
+                                <div class="mt-3 mx-auto">
+                                    <h2>
+                                        <%= animal.name %>, <%= animal.age %>
+                                    </h2>
+                                    <p>
+                                        <%= animal.animalInfo.breed %>
+                                    </p>
+                                    <div class="text-center mb-3">
+                                        <a class="btn btn-outline-dark" href="/animals/<%= animal._id %>">Learn more
+                                            about <%= animal.name %></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <% } %>
+                </div>
+            </div>
+        <%- include("../partials/footer") %>
+    </body>
+
+    <style>
+        @media only screen and (max-width: 600px) {
+            .float-right {
+                float: none !important;
+                margin-right: auto;
+            }
+
+            .my-5 {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 5rem;
+            }
+
+            h1 {
+                padding-bottom: 15px;
+            }
+
+            .d-inline-block {
+                display: block !important;
+            }
+
+            .add {
+                display: none !important;
+            }
+        }
+    </style>
+
+    </html>

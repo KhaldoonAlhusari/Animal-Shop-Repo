@@ -1,0 +1,88 @@
+<%- include("../partials/header") %>
+    <title>About <%= animal.name %>
+    </title>
+    </head>
+
+    <body>
+        <%- include("../partials/nav") %>
+        <div class="container my-5">
+            <div class="my-4 px-3 py-5 card rounded text-center ">
+                <div class="animal-img">
+                    <img class="img-thumbnail" src="<%= animal.img %>" alt="">
+                </div>
+                <h1 class="my-2"><%= animal.name %></h1>
+                <h2><%= animal.animalInfo.animal %>, <%= animal.animalInfo.breed %></h2>
+                <p class="mb-0"><%= animal.age %> years old</p>
+                <% if (typeof animal.trained != "undefined") { %>
+                    <% if (animal.trained) {%>
+                        <p class="mt-0">Trained by Professionals</p>
+                    <% } %>
+                <% } %>
+                <% if (typeof animal.adopted != "undefined" && animal.adopted ) { %>
+                    <p class="mt-3"><%= animal.name %> has been adopted.</p>
+                <% } else { %>
+                    <p class="mt-3"><%= animal.name %> is looking for a new home.</p>
+                    <div class="text-center">
+                        <a href="/animals/<%= animal._id %>/adopt" class="btn btn-outline-dark">
+                            Adopt <%= animal.name %></a>
+                    </div>
+                <% } %>
+                <% if (typeof user != "undefined" && user.admin) { %>
+                    <div class="w-100 mt-3 text-center">
+                        <a href="/animals/<%= animal._id %>/edit" 
+                            class="btn btn-outline-primary">Edit <%= animal.name %></a>
+                    </div>
+                    <div class="w-100 mt-3 text-center">
+                        <a href="/animals/<%= animal._id %>/delete" 
+                            class="btn btn-outline-danger">Remove <%= animal.name %></a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+        <%- include("../partials/footer") %>
+    </body>
+
+    <style>
+        .animal-img img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        .btn {
+            width: 18%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .my-5 {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 5rem;
+            }
+            
+            .my-4 {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            .btn {
+                width: 80%;
+            }
+
+            .py-5 {
+                padding-bottom: 2rem !important;
+            }
+        }
+    </style>
+
+    </html>

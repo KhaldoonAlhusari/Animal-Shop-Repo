@@ -1,0 +1,82 @@
+<%- include("../partials/header") %>
+<title>Events Page</title>
+</head>
+
+<body>
+    <%- include("../partials/nav") %>
+    <div class="container my-5">
+        <h1>Events Page</h1>
+        <% for (let e of events){ %>
+            <div class="row w-100 px-3 py-4 my-4 card">
+                <div class="col-md-3 overflow-hidden image-wrapper">
+                    <img src="<%= e.img %>">
+                </div>
+                <div class="col-md-9">
+                    <h2><%= e.name %></h2>
+                    <p><%= e.text %></p>
+                    <p class="user-p">
+                        by <span class="user"><%= users.filter(u => u._id == e.userId)[0].name %></span>
+                    </p>
+                    <% if (typeof signedIn !="undefined" && signedIn) { %> 
+                        <% if (users.filter(u => u._id == e.userId)[0].name == user.name) { %>
+                            <a href="/events/<%= e._id %>/edit">Edit Post</a>
+                        <% } %>
+                    <% } %> 
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <%- include("../partials/footer") %>
+</body>
+
+<style>
+    .image-wrapper img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .row {
+        flex-direction: row !important;
+    }
+
+    .user-p {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .user {
+        color: rgb(47, 47, 255);
+        font-style: italic;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .my-5 {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 5rem;
+        }
+
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .col-md-9 {
+            height: 220px;
+        }
+
+        .col-md-9 h2 {
+            margin: 13px 0;
+            font-size: 1.9rem;
+        }
+
+        .user-p {
+            margin-top: 20px;
+            margin-bottom: 0 !important;
+        }
+    }
+
+</style>
+
+</html>

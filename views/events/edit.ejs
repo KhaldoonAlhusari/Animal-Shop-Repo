@@ -1,0 +1,44 @@
+<%- include("../partials/header") %>
+<title>Editing Event</title>
+</head>
+
+<body>
+    <%- include("../partials/nav") %>
+        <div class="container my-5">
+            <h1>Editing "<%= event.name %>"</h1>
+            <form action="/events/<%= event._id %>?_method=PATCH" class="text-a w-50" method="post">
+                <div class="form-group">
+                    <label for="name" class="mb-3">Event Name</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                        placeholder="<%= event.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="img" class="mb-3">Event Image</label>
+                    <input type="text" class="form-control" id="img" name="img"
+                        placeholder="<%= event.img %>">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="text" class="mb-3">Event Description</label>
+                    <textarea name="text" id="text" class="form-control"><%= event.text %></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-dark px-4">Submit</button>
+            </form>
+        </div>
+        <%- include("../partials/footer") %>
+</body>
+
+<style>
+    @media only screen and (max-width: 600px) {
+        .my-5 {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 5rem;
+        }
+
+        .w-50 {
+            width: 100% !important;
+        }
+    }
+</style>
+
+</html>
