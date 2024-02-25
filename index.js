@@ -16,7 +16,7 @@ const { Passport } = require("passport");
 const dbUrl = process.env.DB_URL;
 const app = express();
 
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
         console.log("Connected.");
     })
