@@ -1,7 +1,6 @@
 require('dotenv').config({ path: '.env'});
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
 const Animal = require("./models/animal");
@@ -17,13 +16,14 @@ const { Passport } = require("passport");
 const dbUrl = process.env.DB_URL;
 const app = express();
 
-const clientP = mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+const clientP = require("mongoose").connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
     .then((m) => {
         console.log("Connected.");
         return m.connection.getClient();
     })
     .catch((err) => {
         console.log(err);
+        process.exit(1);
     });
 
 
