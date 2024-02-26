@@ -47,17 +47,17 @@
             <h2>Latest Event</h2>
             <div class="row w-100 px-2 py-4 my-4 card">
                 <div class="col-md-3 overflow-hidden image-wrapper">
-                    <img src="<%= events[events.length - 1].img %>">
+                    <img src="<%= events[events.length - 1]?.img || '' %>" alt="broken">
                 </div>
                 <div class="col-md-9">
-                    <h3><%= events[events.length - 1].name %></h3>
-                    <p><%= events[events.length - 1].text %></p>
+                    <h3><%= events[events.length - 1]?.name || "" %></h3>
+                    <p><%= events[events.length - 1]?.text || "" %></p>
                     <p class="user-p">
-                        by <span class="user"><%= users.filter(u => u._id == events[events.length - 1].userId)[0].name %></span>
+                        by <span class="user"><%= users.filter(u => u._id == events[events.length - 1]?.userId)?.[0]?.name %></span>
                     </p>
                     <% if (typeof signedIn !="undefined" && signedIn) { %> 
                         <% if (users.filter(u => u._id == events[events.length - 1].userId)[0].name == user.name) { %>
-                            <a href="/events/<%= events[events.length - 1]._id %>/edit">Edit Post</a>
+                            <a href="/events/<%= events[events.length - 1]?._id || '' %>/edit">Edit Post</a>
                         <% } %>
                     <% } %> 
                 </div>

@@ -12,13 +12,15 @@ const passport = require("passport");
 const initializePassport = require("./passport-config");
 const flash = require("express-flash");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const { Passport } = require("passport");
 const dbUrl = process.env.DB_URL;
 const app = express();
 
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-    .then(() => {
+const clientP = mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+    .then((m) => {
         console.log("Connected.");
+        return m.connection.getClient();
     })
     .catch((err) => {
         console.log(err);
@@ -38,7 +40,14 @@ app.use(flash());
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({
+        clientPromise: clientP,
+        dbName: "Animal-Shop-Data",
+        stringify: false,
+        autoRemove: 'interval',
+        autoRemoveInterval: 1
+    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
